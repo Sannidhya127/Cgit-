@@ -48,7 +48,24 @@ def Initialize():
 
 
 def statusChecker():
-    pass
+    af = os.listdir()
+    for i in af:
+        try:
+            f = open(i, "r")
+            txt = f.read().splitlines()
+            cgf = open(f".cgit\{i}", "r")
+            cgfTxt = cgf.read().splitlines()
+            dif = Differ()
+            df = list(dif.compare(cgfTxt, txt))
+            for i in df:
+                if i[0] == "+":
+                    print(f"{fg('green')}{i}{attr('reset')}")
+                elif i[0] == "-":
+                    print(f"{fg('red_1')}{i}{attr('reset')}")
+                else:
+                    pass
+        except Exception as e:
+            print(e)
 
 
 def commit(commitMsg):

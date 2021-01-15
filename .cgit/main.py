@@ -18,6 +18,7 @@ import subprocess
 import win32con
 import win32api
 import winreg as reg
+import pandas
 
 
 def BackUpFiles():
