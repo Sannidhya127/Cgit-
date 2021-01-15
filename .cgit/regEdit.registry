@@ -1,0 +1,32 @@
+try:
+        # Get path of current working directory and python.exe
+        cwd = r"C:\Users\KAUSTAV\Desktop\File Bash\dist\main.exe"
+        python_exe = sys.executable
+
+        # optional hide python terminal in windows
+        hidden_terminal = '\\'.join(
+            python_exe.split('\\')[:-1])+"\\pythonw.exe"
+
+        # Set the path of the context menu (right-click menu)
+        # Change 'Organiser' to the name of your project
+        key_path = r'Directory\\Background\\shell\\File Bash\\'
+
+        # Create outer key
+        key = reg.CreateKey(reg.HKEY_CLASSES_ROOT, key_path)
+        # Change 'Organise folder' to the function of your script
+        reg.SetValue(key, '', reg.REG_SZ, '&File Bash here')
+
+        # create inner key
+        key1 = reg.CreateKey(key, r"command")
+        # change 'file_organiser.py' to the name of your script
+        reg.SetValue(key1, '', reg.REG_SZ, "" +
+                     f"{cwd}")
+        # reg.SetValue(key1, '', reg.REG_SZ, hidden_terminal + f' "{cwd}\\file_organiser.py"')  # use to to hide terminal
+    except Exception:
+        keyPathEx = os.path.exists(
+            "Computer\HKEY_CLASSES_ROOT\Directory\Background\shell\File Bash")
+        if keyPathEx == True:
+            response = win32ui.MessageBox(
+                "WinError 5. Access error. Could not access registry editor. Try running File Bash as asministrator", "WinError[5] Access Error", win32con.MB_ICONERROR)
+        else:
+            pass
